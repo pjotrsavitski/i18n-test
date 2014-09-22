@@ -2,8 +2,9 @@ extends layout
 
 block content
   h1= title
-  p
-    a(href='/changelanguage/en') en
-    | &nbsp;
-    a(href='/changelanguage/et') et
+  p.languages
+    each lang, index in languages
+      unless index == 0
+        | &nbsp;
+      a(href='/changelanguage/'+lang, class=(current_language == lang) ? 'selected' : '')= lang
   p #{__('Welcome to %s', title)}

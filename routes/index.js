@@ -5,7 +5,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: res.__('i18n-test') });
+  res.render('index', {
+      title: res.__('i18n-test'),
+      languages: config.i18n.locales,
+      current_language: res.getLocale()
+  });
 });
 
 /* GET to change locale. */
