@@ -4,6 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config');
+var i18n = require('i18n');
+
+i18n.configure({
+    locales: config.i18n.locales,
+    defaultLocale: config.i18n.defaultLocale,
+    cookie: config.i18n.cookie,
+    directory: __dirname + '/locales'
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(i18n.init);
 
 app.use('/', routes);
 app.use('/users', users);
