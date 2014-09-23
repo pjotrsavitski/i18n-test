@@ -1,0 +1,5 @@
+.languages
+  each single, index in locales
+    unless index == 0
+      | &nbsp;
+    a(href='/changelanguage/'+single, class=(locale == single) ? 'selected' : '')= single
