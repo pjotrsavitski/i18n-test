@@ -2,3 +2,4 @@ public/stylesheets/style.css
 **/.git/**
 .gitignore
 logs/*
+test/*
