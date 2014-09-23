@@ -1,2 +1,4 @@
 node_modules/
 public/stylesheets/style.css
+logs/out.log
+logs/error.log
