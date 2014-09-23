@@ -1,12 +1,14 @@
 var superagent = require('superagent');
 var expect = require('expect.js');
 
-var request = superagent;
 var address = 'http://localhost:3000';
 
 describe('express app', function() {
+  // This way cookies and sessions are used
+  var agent = superagent.agent();
+
   it('get static', function(done) {
-    request.get(address+'/static/stylesheets/style.css')
+    agent.get(address+'/static/stylesheets/style.css')
       .end(function(err, res) {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
@@ -16,7 +18,7 @@ describe('express app', function() {
   });
 
   it('get index', function(done) {
-    request.get(address+'/')
+    agent.get(address+'/')
       .end(function(err, res) {
         expect(err).to.equal(null);
         expect(res.status).to.equal(200);
@@ -25,8 +27,18 @@ describe('express app', function() {
       });
   });
 
+  it('change language', function(done) {
+    agent.get(address+'/changelanguage/et')
+      .end(function(err, res) {
+        expect(err).to.equal(null);
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('Tere portaali');
+        done();
+      });
+  });
+
   it('get users index', function(done) {
-    request.get(address+'/users')
+    agent.get(address+'/users')
       .end(function(err, res) {
           expect(err).to.equal(null);
           expect(res.status).to.equal(200);
