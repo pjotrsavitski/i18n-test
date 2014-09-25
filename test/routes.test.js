@@ -3,11 +3,11 @@ var expect = require('expect.js');
 
 var address = 'http://localhost:3000';
 
-describe('express app', function() {
+describe('app', function() {
   // This way cookies and sessions are used
   var agent = superagent.agent();
 
-  it('get static', function(done) {
+  it('GET /static', function(done) {
     agent.get(address+'/static/stylesheets/style.css')
       .end(function(err, res) {
           expect(err).to.equal(null);
@@ -17,7 +17,7 @@ describe('express app', function() {
       });
   });
 
-  it('get index', function(done) {
+  it('GET index', function(done) {
     agent.get(address+'/')
       .end(function(err, res) {
         expect(err).to.equal(null);
@@ -27,7 +27,7 @@ describe('express app', function() {
       });
   });
 
-  it('change language', function(done) {
+  it('GET change language', function(done) {
     agent.get(address+'/changelanguage/et')
       .end(function(err, res) {
         expect(err).to.equal(null);
@@ -37,7 +37,7 @@ describe('express app', function() {
       });
   });
 
-  it('get users index', function(done) {
+  it('GET /users index', function(done) {
     agent.get(address+'/users')
       .end(function(err, res) {
           expect(err).to.equal(null);
