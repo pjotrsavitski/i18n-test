@@ -1,16 +1,16 @@
-var superagent = require('superagent');
-var expect = require('expect.js');
+var chai = require('chai');
+var expect = chai.expect;
+var request = require('supertest');
 
-var address = 'http://localhost:3000';
+var app = require('../app');
 
 describe('app', function() {
-  // This way cookies and sessions are used
-  var agent = superagent.agent();
+  var agent = request.agent(app);
 
   it('GET /static', function(done) {
-    agent.get(address+'/static/stylesheets/style.css')
+    agent
+      .get('/static/stylesheets/style.css')
       .end(function(err, res) {
-          expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.type).to.equal('text/css');
           done();
@@ -18,29 +18,44 @@ describe('app', function() {
   });
 
   it('GET index', function(done) {
-    agent.get(address+'/')
+    agent
+      .get('/')
       .end(function(err, res) {
-        expect(err).to.equal(null);
         expect(res.status).to.equal(200);
         expect(res.type).to.equal('text/html');
         done();
       });
   });
 
-  it('GET change language', function(done) {
-    agent.get(address+'/changelanguage/et')
-      .end(function(err, res) {
-        expect(err).to.equal(null);
-        expect(res.status).to.equal(200);
-        expect(res.text).to.contain('Tere portaali');
-        done();
-      });
+  describe('change language', function() {
+    
+    it('GET change language', function(done) {
+      agent
+        .get('/changelanguage/et')
+        .end(function(err, res) {
+          expect(res.status).to.equal(302);
+          // TODO A better check is needed
+          expect(res.header['set-cookie'][0]).to.contain('=et');
+          done();
+        });
+    });
+    
+    it('GET index with changed language', function(done) {
+      agent
+        .get('/')
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          // TODO Might use a cookie name instead
+          expect(res.req._header).to.match(/Cookie: (.*)=et/);
+          done();
+        });
+    });
   });
 
   it('GET /users index', function(done) {
-    agent.get(address+'/users')
+    agent
+      .get('/users')
       .end(function(err, res) {
-          expect(err).to.equal(null);
           expect(res.status).to.equal(200);
           expect(res.type).to.equal('text/plain');
           done();
