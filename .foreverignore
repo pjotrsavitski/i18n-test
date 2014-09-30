@@ -1,4 +1,4 @@
-public/stylesheets/style.css
+public/static/stylesheets/style.css
 **/.git/**
 .gitignore
 logs/*
