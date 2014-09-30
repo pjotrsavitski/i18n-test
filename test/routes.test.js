@@ -10,17 +10,15 @@ describe('app', function() {
   it('GET /static', function(done) {
     agent
       .get('/static/stylesheets/style.css')
-      .end(function(err, res) {
-          expect(res.status).to.equal(200);
-          expect(res.type).to.equal('text/css');
-          done();
-      });
+      .expect('Content-Type', /css/)
+      .expect(200, done);
   });
 
   it('GET index', function(done) {
     agent
       .get('/')
       .end(function(err, res) {
+        expect(err).to.not.exist;
         expect(res.status).to.equal(200);
         expect(res.type).to.equal('text/html');
         done();
@@ -33,6 +31,7 @@ describe('app', function() {
       agent
         .get('/changelanguage/et')
         .end(function(err, res) {
+          expect(err).to.not.exist;
           expect(res.status).to.equal(302);
           // TODO A better check is needed
           expect(res.header['set-cookie'][0]).to.contain('=et');
@@ -44,6 +43,7 @@ describe('app', function() {
       agent
         .get('/')
         .end(function(err, res) {
+          expect(err).to.not.exist;
           expect(res.status).to.equal(200);
           // TODO Might use a cookie name instead
           expect(res.req._header).to.match(/Cookie: (.*)=et/);
@@ -56,6 +56,7 @@ describe('app', function() {
     agent
       .get('/users')
       .end(function(err, res) {
+          expect(err).to.not.exist;
           expect(res.status).to.equal(200);
           expect(res.type).to.equal('text/plain');
           done();
