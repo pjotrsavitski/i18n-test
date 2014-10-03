@@ -4,6 +4,6 @@ block content
   h1= title
   //- include languages.jade
   include ./includes/languages.jade
-  //- include user.jade
-  include ./includes/user.jade
-  p #{__('Welcome to %s', title)}
+  p #{__('Login with')}
+    | 
+    a(href="auth/oidc") #{__('OpenID Connect')}

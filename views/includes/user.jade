@@ -1,0 +1,8 @@
+if user
+  p
+    span= user.id + ' ' + user.username + ' ' + user.name + ' ' + user.email
+    | 
+    a(href='logout') #{__('Log out')}
+else
+  p
+    a(href='login') #{__('Log in')} 

@@ -1,4 +1,8 @@
 {
 	"i18n-test": "i18n-test",
-	"Welcome to %s": "Welcome to %s"
+	"Welcome to %s": "Welcome to %s",
+	"Login with": "Login with",
+	"OpenID Connect": "OpenID Connect",
+	"Log in": "Log in",
+	"Log out": "Log out"
 }

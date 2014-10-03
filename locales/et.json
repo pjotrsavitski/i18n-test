@@ -1,4 +1,7 @@
 {
 	"i18n-test": "i18n-testimine",
-	"Welcome to %s": "Tere portaali %s"
+	"Welcome to %s": "Tere portaali %s",
+	"Log in": "Log in",
+	"Login with": "Login with",
+	"OpenID Connect": "OpenID Connect"
 }

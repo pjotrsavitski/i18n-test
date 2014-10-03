@@ -62,5 +62,29 @@ describe('app', function() {
           done();
       });
   });
+
+  describe('unauthenticated protection', function() {
+    it('GET /login with aunauthenticated user', function(done) {
+      agent
+        .get('/login')
+        .end(function(err, res) {
+          expect(err).to.not.exist;
+          expect(res.status).to.equal(200);
+          expect(res.type).to.equal('text/html');
+          done();
+        });
+    });
+
+    it('GET /logout with aunauthenticated user', function(done) {
+      agent
+        .get('/logout')
+        .end(function(err, res) {
+          expect(err).to.not.exist;
+          expect(res.status).to.equal(302);
+          done();
+        });
+    });
+
+  });
 });
 
